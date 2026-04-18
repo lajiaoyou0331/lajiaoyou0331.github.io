@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+zh-CN">
+>
+    ="UTF-8">
+    " content="width=device-width, initial-scale=1.0">
+    人格  {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', 'Microsoft YaHei', sans-serif;
+        }
+        body {
+            background: linear-gradient(135deg, #fdf2f8 0%, #fef7fb 100%);
+            min-height: 100vh;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .container {
+            width: 100%;
+            max-width: 600px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(255, 192, 233, 0.2);
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .header h1 {
+            color: #d946ef;
+            font-size: 28px;
+            margin-bottom: 10px;
+            text-shadow: 0 2px 4px rgba(217, 70, 239, 0.1);
+        }
+        .header p {
+            color: #666;
+            font-size: 16px;
+        }
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #f3e8f5;
+            border-radius: 4px;
+            margin-bottom: 30px;
+            overflow: hidden;
+        }
+        .progress {
+            height: 100%;
+            background: linear-gradient(90deg, #d946ef, #f472b6);
+            border-radius: 4px;
+            transition: width 0.5s ease;
+        }
+        .question-card {
+            margin-bottom: 30px;
+            animation: fadeIn 0.5s ease;
+        }
+        .question {
+            font-size: 20px;
+            color: #333;
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .option {
+            padding: 16px;
+            background: #f9f5f7;
+            border-radius: 12px;
+            border: 2px solid transparent;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 16px;
+            color: #444;
+        }
+        .option:hover {
+            background: #fdf2f8;
+            border-color: #fce7f3;
+        }
+        .option.selected {
+            background: #fce7f3;
+            border-color: #d946ef;
+            color: #d946ef;
+            font-weight: 500;
+        }
+        .btn-group {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 40px;
+        }
+        .btn {
+            padding: 14px 30px;
+            border-radius: 50px;
+            border: none;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .btn-prev {
+            background: #f3e8f5;
+            color: #d946ef;
+        }
+        .btn-prev:hover {
+            background: #ede9f0;
+        }
+        .btn-next {
+            background: linear-gradient(90deg, #d946ef, #f472b6);
+            color: white;
+        }
+        .btn-next:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
+        }
+        .result-page {
+            text-align: center;
+            padding: 20px 0;
+            animation: fadeIn 0.8s ease;
+        }
+        .result-icon {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #fce7f3, #fdf2f8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 30px;
+            box-shadow: 0 10px 20px rgba(255, 192, 233, 0.2);
+        }
+        .result-icon i {
+            font-size: 60px;
+            color: #d946ef;
+        }
+        .result-title {
+            font-size: 26px;
+            color: #d946ef;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+        .result-desc {
+            font-size: 18px;
+            color: #555;
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+        .btn-restart {
+            background: linear-gradient(90deg, #d946ef, #f472b6);
+            color: white;
+            padding: 14px 40px;
+            border-radius: 50px;
+            border: none;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .btn-restart:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .hidden {
+            display: none;
+        }
+         -->
+    ="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<body>
+    <div class="container">
+        ">
+            >测测你的桂瑞人格            选择，解锁专属桂瑞缘分标签～
+                -bar">
+             class="progress" style="width: 20%"></div>
+        </div>
+
+        题目区域 -->
+        <div class="question-container">
+            题 -->
+             class="question-card" id="question1">
+                1. 你是如何记住了解桂瑞的？</div>
+                <div class="options">
+                    " data-value="A">A. 过硬的实力</div>
+                    <div class="option" data-value="B">B. 四代第一美帝的超完美外貌                    " data-value="C">C. 吸引人的性格内核  data-value="D">D. 药味冲天的互动 </div>
+            </div>
+
+            第2题 -->
+             hidden" id="question2">
+                ="question">2. 你认为桂瑞药味最浓的一个场景？</div>
+                <div class="options">
+                    " data-value="A">A. 2025年运动会的一切</div>
+                     class="option" data-value="B">B. 不用了谢谢
+                    option" data-value="C">C. 张桂源在新音后台看张函瑞唱歌>
+                    ="option" data-value="D">D. 小星星第一期蜜雪冰城</div>
+                </div>
+            >
+
+            3题 -->
+            <div class="question-card hidden" id="question3">
+                question">3. 如果有第三个双人舞台希望桂瑞唱哪首歌？</div>
+                 class="options">
+                     data-value="A">A. 《同手同脚》  data-value="B">B. 《几分之几》</div>
+                    <div class="option" data-value="C">C. 《爱存在》>
+                    ="option" data-value="D">D. 《一直很安静》
+                             
+            question-card hidden" id="question4">
+                <div class="question">4. 2026年运动会最希望看到桂瑞有哪些互动？</div>
+                 class="options">
+                     data-value="A">A. 不心动挑战</div>
+                     class="option" data-value="B">B. 撕名牌把你护在身后  data-value="C">C. 广播站告白>
+                    ="option" data-value="D">D. 双人饭撒                 </div>
+
+             第5题 -->
+            -card hidden" id="question5">
+                 class="question">5. 如果你能逆转时间，你最想回到哪一年去陪桂瑞？</div>
+                 class="options">
+                     data-value="A">A. 2022</div>
+                    <div class="option" data-value="B">B. 2023</div>
+                     class="option" data-value="C">C. 2024>
+                    ="option" data-value="D">D. 2025
+                             </div>
+
+         结果区域 -->
+         hidden" id="resultPage">
+            ="result-icon">
+                -heart"> </div>
+            <div class="result-title" id="resultTitle">终极磕糖选手
+            result-desc" id="resultDesc">
+                你是桂瑞的死忠磕糖党，对两人的互动了如指掌，从细节里磕出糖渣，是圈子里的氛围组担当！你相信桂瑞的缘分天注定，每一个名场面都刻在DNA里，未来也会一直陪伴他们走下去～
+            </div>
+            <button class="btn-restart" onclick="restartTest()">重新测试
+                
+        btn-group" id="btnGroup">
+             class="btn btn-prev hidden" onclick="prevQuestion()">上一题
+            btn btn-next" onclick="nextQuestion()">下一题</button>
+        >
+    
+
+            // 全局变量
+        let currentQuestion = 1;
+        const totalQuestions = 5;
+        const answers = {}; // 存储用户答案
+
+        // 初始化选项点击事件
+        document.querySelectorAll('.option').forEach(option => {
+            option.addEventListener('click', function() {
+                // 取消同题其他选项选中状态
+                const parentOptions = this.parentElement;
+                parentOptions.querySelectorAll('.option').forEach(opt => {
+                    opt.classList.remove('selected');
+                });
+                // 选中当前选项
+                this.classList.add('selected');
+                // 存储答案
+                const questionNum = currentQuestion;
+                answers[questionNum] = this.dataset.value;
+            });
+        });
+
+        // 下一题
+        function nextQuestion() {
+            // 验证是否选择答案
+            if (!answers[currentQuestion]) {
+                alert('请选择一个选项再继续哦～');
+                return;
+            }
+
+            // 隐藏当前题目
+            document.getElementById(`question${currentQuestion}`).classList.add('hidden');
+            
+            // 计算进度
+            currentQuestion++;
+            updateProgress();
+
+            // 显示下一题或结果页
+            if (currentQuestion  totalQuestions) {
+                document.getElementById(`question${currentQuestion}`).classList.remove('hidden');
+                // 显示上一题按钮
+                document.querySelector('.btn-prev').classList.remove('hidden');
+            } else {
+                // 显示结果页
+                showResult();
+                return;
+            }
+
+            // 最后一题修改按钮文本
+            if (currentQuestion === totalQuestions) {
+                document.querySelector('.btn-next').textContent = '查看结果';
+            }
+        }
+
+        // 上一题
+        function prevQuestion() {
+            // 隐藏当前题目
+            document.getElementById(`question${currentQuestion}`).classList.add('hidden');
+            
+            // 回退进度
+            currentQuestion--;
+            updateProgress();
+
+            // 显示上一题
+            document.getElementById(`question${currentQuestion}`).classList.remove('hidden');
+            
+            // 隐藏上一题按钮（第一题时）
+            if (currentQuestion === 1) {
+                document.querySelector('.btn-prev').classList.add('hidden');
+            }
+
+            // 恢复按钮文本
+            document.querySelector('.btn-next').textContent = '下一题';
+
+            // 恢复选中状态
+            const selectedValue = answers[currentQuestion];
+            if (selectedValue) {
+                const options = document.querySelectorAll(`#question${currentQuestion} .option`);
+                options.forEach(opt => {
+                    if (opt.dataset.value === selectedValue) {
+                        opt.classList.add('selected');
+                    }
+                });
+            }
+        }
+
+        // 更新进度条
+        function updateProgress() {
+            const progress = (currentQuestion / totalQuestions) * 100;
+            document.querySelector('.progress').style.width = `${progress}%`;
+        }
+
+        // 显示结果
+        function showResult() {
+            // 隐藏题目和按钮，显示结果
+            document.querySelector('.question-container').classList.add('hidden');
+            document.getElementById('btnGroup').classList.add('hidden');
+            document.getElementById('resultPage').classList.remove('hidden');
+
+            // 根据答案计算结果（可扩展更多结果类型）
+            const resultType = getResultType();
+            updateResultContent(resultType);
+        }
+
+        // 根据答案计算结果类型
+        function getResultType() {
+            // 这里可以根据实际需求设计结果逻辑
+            // 示例：统计A、B、C、D的数量，返回对应结果
+            const count = { A: 0, B: 0, C: 0, D: 0 };
+            for (let key in answers) {
+                const value = answers[key];
+                count[value]++;
+            }
+
+            // 找出最多的选项
+            let maxCount = 0;
+            let resultType = 'A';
+            for (let key in count) {
+                if (count[key] > maxCount) {
+                    maxCount = count[key];
+                    resultType = key;
+                }
+            }
+
+            return resultType;
+        }
+
+        // 更新结果内容
+        function updateResultContent(type) {
+            const resultTitle = document.getElementById('resultTitle');
+            const resultDesc = document.getElementById('resultDesc');
+
+            // 不同结果类型的内容
+            const resultConfig = {
+                A: {
+                    title: '果肉',
+                    desc: '被豹豹猫猫过硬的业务能力圈粉，我们是陪伴他们走花路的坚实后盾，超级纯正的桂瑞小鸡～爱磕甜甜的糖，像果肉一样甜呢～'
+                },
+                B: {
+                    title: '挂揣',
+                    desc: '桂瑞“四代第一美帝”不解释，颜值即正义，每一份合照每一份心意都该被挂身上揣兜里好好珍藏'
+                },
+                C: {
+                    title: '圆肉',
+                    desc: '我很想念一个圆圆和肉肉，想念你们消失的脸颊肉，想念你们的曾经，想念你们的纯真笑容'
+                },
+                D: {
+                    title: '源桂张 肉好胀',
+                    desc: '是源桂张和肉好胀，是三点水的源和zhang憨蜹，是451和4唱1，是太阳与地球，是万千小鸡的豹豹猫猫！'
+                }
+            };
+
+            // 设置结果内容
+            resultTitle.textContent = resultConfig[type].title;
+            resultDesc.textContent = resultConfig[type].desc;
+        }
+
+        // 重新测试
+        function restartTest() {
+            // 重置变量
+            currentQuestion = 1;
+            answers = {};
+
+            // 隐藏结果页，显示第一题
+            document.getElementById('resultPage').classList.add('hidden');
+            document.querySelector('.question-container').classList.remove('hidden');
+            document.getElementById('btnGroup').classList.remove('hidden');
+            
+            // 重置所有题目状态
+            document.querySelectorAll('.question-card').forEach((card, index) => {
+                if (index === 0) {
+                    card.classList.remove('hidden');
+                } else {
+                    card.classList.add('hidden');
+                }
+                // 清除选中状态
+                card.querySelectorAll('.option').forEach(opt => {
+                    opt.classList.remove('selected');
+                });
+            });
+
+            // 重置按钮和进度条
+            document.querySelector('.btn-prev').classList.add('hidden');
+            document.querySelector('.btn-next').textContent = '下一题';
+            updateProgress();
+        }
+    </script>
+</body>
