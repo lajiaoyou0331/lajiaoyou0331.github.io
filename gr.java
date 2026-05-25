@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>桂瑞趣味测试合集</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', 'Microsoft YaHei', sans-serif;
+        }
+        body {
+            background: linear-gradient(135deg, #fdf2f8 0%, #fef7fb 100%);
+            min-height: 100vh;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .container {
+            width: 100%;
+            max-width: 600px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(255, 192, 233, 0.2);
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        /* 顶部切换按钮 */
+        .tab-box {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 25px;
+        }
+        .tab-btn {
+            flex: 1;
+            padding: 12px;
+            border: 2px solid #d946ef;
+            border-radius: 12px;
+            background: #fff;
+            color: #d946ef;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .tab-btn.active {
+            background: #d946ef;
+            color: #fff;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .header h1 {
+            color: #d946ef;
+            font-size: 28px;
+            margin-bottom: 10px;
+            text-shadow: 0 2px 4px rgba(217, 70, 239, 0.1);
+        }
+        .header p {
+            color: #666;
+            font-size: 16px;
+        }
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #f3e8f5;
+            border-radius: 4px;
+            margin-bottom: 30px;
+            overflow: hidden;
+        }
+        .progress {
+            height: 100%;
+            background: linear-gradient(90deg, #d946ef, #f472b6);
+            border-radius: 4px;
+            transition: width 0.5s ease;
+        }
+        .question-card {
+            margin-bottom: 30px;
+            animation: fadeIn 0.5s ease;
+        }
+        .question {
+            font-size: 20px;
+            color: #333;
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .option {
+            padding: 16px;
+            background: #f9f5f7;
+            border-radius: 12px;
+            border: 2px solid transparent;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 16px;
+            color: #444;
+        }
+        .option:hover {
+            background: #fdf2f8;
+            border-color: #fce7f3;
+        }
+        .option.selected {
+            background: #fce7f3;
+            border-color: #d946ef;
+            color: #d946ef;
+            font-weight: 500;
+        }
+        .btn-group {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 40px;
+        }
+        .btn {
+            padding: 14px 30px;
+            border-radius: 50px;
+            border: none;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .btn-prev {
+            background: #f3e8f5;
+            color: #d946ef;
+        }
+        .btn-prev:hover {
+            background: #ede9f0;
+        }
+        .btn-next {
+            background: linear-gradient(90deg, #d946ef, #f472b6);
+            color: white;
+        }
+        .btn-next:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
+        }
+        .result-page {
+            text-align: center;
+            padding: 20px 0;
+            animation: fadeIn 0.8s ease;
+        }
+        .result-icon {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #fce7f3, #fdf2f8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 30px;
+            box-shadow: 0 10px 20px rgba(255, 192, 233, 0.2);
+        }
+        .result-icon i {
+            font-size: 60px;
+            color: #d946ef;
+        }
+        .result-title {
+            font-size: 26px;
+            color: #d946ef;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+        .result-desc {
+            font-size: 18px;
+            color: #555;
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+        .btn-restart {
+            background: linear-gradient(90deg, #d946ef, #f472b6);
+            color: white;
+            padding: 14px 40px;
+            border-radius: 50px;
+            border: none;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .btn-restart:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <!-- 切换标签 -->
+        <div class="tab-box">
+            <button class="tab-btn active" onclick="switchTest(1)">桂瑞人格测试</button>
+            <button class="tab-btn" onclick="switchTest(2)">家产模拟器</button>
+        </div>
+
+        <!-- 头部标题 -->
+        <div class="header">
+            <h1 id="mainTitle">测测你的桂瑞人格</h1>
+            <p id="mainDesc">选择，解锁专属桂瑞缘分标签～</p>
+        </div>
+
+        <!-- 进度条 -->
+        <div class="progress-bar">
+            <div class="progress" style="width: 20%"></div>
+        </div>
+
+        <!-- ========== 模块1：原有 桂瑞人格测试 5题 ========== -->
+        <div class="test-module" id="module1">
+            <div class="question-container">
+                <div class="question-card" id="q1-1">
+                    <div class="question">1. 你是如何记住了解桂瑞的？</div>
+                    <div class="options">
+                        <div class="option" data-value="A">A. 过硬的实力</div>
+                        <div class="option" data-value="B">B. 四代第一美帝的超完美外貌</div>
+                        <div class="option" data-value="C">C. 吸引人的性格内核</div>
+                        <div class="option" data-value="D">D. 药味冲天的互动 </div>
+                    </div>
+                </div>
+                <div class="question-card hidden" id="q1-2">
+                    <div class="question">2. 你认为桂瑞药味最浓的一个场景？</div>
+                    <div class="options">
+                        <div class="option" data-value="A">A. 2025年运动会的一切</div>
+                        <div class="option" data-value="B">B. 不用了谢谢</div>
+                        <div class="option" data-value="C">C. 张桂源在新音后台看张函瑞唱歌</div>
+                        <div class="option" data-value="D">D. 小星星第一期蜜雪冰城</div>
+                    </div>
+                </div>
+                <div class="question-card hidden" id="q1-3">
+                    <div class="question">3. 如果有第三个双人舞台希望桂瑞唱哪首歌？</div>
+                    <div class="options">
+                        <div class="option" data-value="A">A. 《同手同脚》</div>
+                        <div class="option" data-value="B">B. 《几分之几》</div>
+                        <div class="option" data-value="C">C. 《爱存在》</div>
+                        <div class="option" data-value="D">D. 《一直很安静》</div>
+                    </div>
+                </div>
+                <div class="question-card hidden" id="q1-4">
+                    <div class="question">4. 2026年运动会最希望看到桂瑞有哪些互动？</div>
+                    <div class="options">
+                        <div class="option" data-value="A">A. 不心动挑战</div>
+                        <div class="option" data-value="B">B. 撕名牌把你护在身后</div>
+                        <div class="option" data-value="C">C. 广播站告白</div>
+                        <div class="option" data-value="D">D. 双人饭撒</div>
+                    </div>
+                </div>
+                <div class="question-card hidden" id="q1-5">
+                    <div class="question">5. 如果你能逆转时间，你最想回到哪一年去陪桂瑞？</div>
+                    <div class="options">
+                        <div class="option" data-value="A">A. 2022</div>
+                        <div class="option" data-value="B">B. 2023</div>
+                        <div class="option" data-value="C">C. 2024</div>
+                        <div class="option" data-value="D">D. 2025</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========== 模块2：新增 家产模拟器 3题 ========== -->
+        <div class="test-module hidden" id="module2">
+            <div class="question-container">
+                <div class="question-card" id="q2-1">
+                    <div class="question">1. 当你早上起床不想上学，你会？</div>
+                    <div class="options">
+                        <div class="option" data-value="A">A. 直接赖床</div>
+                        <div class="option" data-value="B">B. 让挂挂揣揣帮你编个理由请假</div>
+                        <div class="option" data-value="C">C. 赶紧爬起来上学</div>
+                    </div>
+                </div>
+                <div class="question-card hidden" id="q2-2">
+                    <div class="question">2. 在学校里，别人向你打听你父母的工作，你会？</div>
+                    <div class="options">
+                        <div class="option" data-value="A">A. 我豹猫可是全球顶流！</div>
+                        <div class="option" data-value="B">B. 装糖躲过去</div>
+                        <div class="option" data-value="C">C. 随便编个职业糊弄过去</div>
+                    </div>
+                </div>
+                <div class="question-card hidden" id="q2-3">
+                    <div class="question">3. 放学后你挂挂来接你，可是平时都是揣揣来呀！你会？</div>
+                    <div class="options">
+                        <div class="option" data-value="A">A. 我妈呢？</div>
+                        <div class="option" data-value="B">B. 老爸今天好帅啊～</div>
+                        <div class="option" data-value="C">C. （今天不对劲 一定给我准备了大惊喜）</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 统一结果页 -->
+        <div class="result-page hidden" id="resultPage">
+            <div class="result-icon">
+                <i class="fas fa-heart"></i>
+            </div>
+            <div class="result-title" id="resultTitle">终极磕糖选手</div>
+            <div class="result-desc" id="resultDesc">
+                你是桂瑞的死忠磕糖党，对两人的互动了如指掌，从细节里磕出糖渣，是圈子里的氛围组担当！你相信桂瑞的缘分天注定，每一个名场面都刻在DNA里，未来也会一直陪伴他们走下去～
+            </div>
+            <button class="btn-restart" onclick="restartTest()">重新测试</button>
+        </div>
+
+        <!-- 上下页按钮组 -->
+        <div class="btn-group" id="btnGroup">
+            <button class="btn btn-prev hidden" onclick="prevQuestion()">上一题</button>
+            <button class="btn btn-next" onclick="nextQuestion()">下一题</button>
+        </div>
+    </div>
+
+    <script>
+        // 全局配置
+        let nowModule = 1; // 当前模块 1=人格测试 2=家产模拟器
+        let currentQuestion = 1;
+        let totalQuestions = 5;
+        const answers = {};
+
+        // 模块配置
+        const moduleConfig = {
+            1: { total: 5, title: "测测你的桂瑞人格", desc: "选择，解锁专属桂瑞缘分标签～" },
+            2: { total: 3, title: "家产模拟器", desc: "测测你在桂瑞家的亲密度等级～" }
+        };
+
+        // 初始化所有选项点击事件
+        document.querySelectorAll('.option').forEach(option => {
+            option.addEventListener('click', function() {
+                const parentOptions = this.parentElement;
+                parentOptions.querySelectorAll('.option').forEach(opt => {
+                    opt.classList.remove('selected');
+                });
+                this.classList.add('selected');
+                answers[currentQuestion] = this.dataset.value;
+            });
+        });
+
+        // 切换测试模块
+        function switchTest(mod) {
+            nowModule = mod;
+            totalQuestions = moduleConfig[mod].total;
+            currentQuestion = 1;
+            Object.keys(answers).forEach(key => delete answers[key]);
+
+            // 切换标签样式
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+
+            // 切换标题
+            document.getElementById('mainTitle').innerText = moduleConfig[mod].title;
+            document.getElementById('mainDesc').innerText = moduleConfig[mod].desc;
+
+            // 隐藏所有模块、结果页
+            document.querySelectorAll('.test-module').forEach(m => m.classList.add('hidden'));
+            document.getElementById('resultPage').classList.add('hidden');
+            document.getElementById('btnGroup').classList.remove('hidden');
+
+            // 显示当前模块
+            document.getElementById(`module${mod}`).classList.remove('hidden');
+
+            // 重置所有题目状态
+            resetAllQuestion();
+            document.querySelector('.btn-prev').classList.add('hidden');
+            document.querySelector('.btn-next').textContent = '下一题';
+            updateProgress();
+        }
+
+        // 重置所有题目
+        function resetAllQuestion() {
+            // 人格测试题目
+            for(let i = 1; i <= 5; i++){
+                let q = document.getElementById(`q1-${i}`);
+                q.classList.toggle('hidden', i !== 1);
+                q.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected'));
+            }
+            // 家产模拟器题目
+            for(let i = 1; i <= 3; i++){
+                let q = document.getElementById(`q2-${i}`);
+                q.classList.toggle('hidden', i !== 1);
+                q.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected'));
+            }
+        }
+
+        // 获取当前题目DOM
+        function getCurQuestionDom() {
+            return document.getElementById(`q${nowModule}-${currentQuestion}`);
+        }
+
+        // 下一题
+        function nextQuestion() {
+            if (!answers[currentQuestion]) {
+                alert('请选择一个选项再继续哦～');
+                return;
+            }
+            getCurQuestionDom().classList.add('hidden');
+            currentQuestion++;
+            updateProgress();
+
+            if (currentQuestion <= totalQuestions) {
+                getCurQuestionDom().classList.remove('hidden');
+                document.querySelector('.btn-prev').classList.remove('hidden');
+            } else {
+                showResult();
+                return;
+            }
+
+            if (currentQuestion === totalQuestions) {
+                document.querySelector('.btn-next').textContent = '查看结果';
+            }
+        }
+
+        // 上一题
+        function prevQuestion() {
+            getCurQuestionDom().classList.add('hidden');
+            currentQuestion--;
+            updateProgress();
+            getCurQuestionDom().classList.remove('hidden');
+
+            if (currentQuestion === 1) {
+                document.querySelector('.btn-prev').classList.add('hidden');
+            }
+            document.querySelector('.btn-next').textContent = '下一题';
+
+            // 恢复选中状态
+            const val = answers[currentQuestion];
+            if(val){
+                getCurQuestionDom().querySelectorAll('.option').forEach(opt => {
+                    if(opt.dataset.value === val) opt.classList.add('selected');
+                });
+            }
+        }
+
+        // 更新进度条
+        function updateProgress() {
+            const progress = (currentQuestion / totalQuestions) * 100;
+            document.querySelector('.progress').style.width = `${progress}%`;
+        }
+
+        // 展示结果
+        function showResult() {
+            document.querySelector('.test-module').forEach?.(m => m.classList.add('hidden'));
+            document.getElementById('btnGroup').classList.add('hidden');
+            document.getElementById('resultPage').classList.remove('hidden');
+
+            if(nowModule === 1){
+                // 原有：桂瑞人格测试 逻辑
+                const count = { A: 0, B: 0, C: 0, D: 0 };
+                for (let key in answers) {
+                    const v = answers[key];
+                    count[v]++;
+                }
+                let maxCount = 0, resType = 'A';
+                for (let k in count) {
+                    if (count[k] > maxCount) {
+                        maxCount = count[k];
+                        resType = k;
+                    }
+                }
+                const resultConfig = {
+                    A: { title: '果肉', desc: '被豹豹猫猫过硬的业务能力圈粉，我们是陪伴他们走花路的坚实后盾，超级纯正的桂瑞小鸡～爱磕甜甜的糖，像果肉一样甜呢～' },
+                    B: { title: '挂揣', desc: '桂瑞“四代第一美帝”不解释，颜值即正义，每一份合照每一份心意都该被挂身上揣兜里好好珍藏' },
+                    C: { title: '圆肉', desc: '我很想念一个圆圆和肉肉，想念你们消失的脸颊肉，想念你们的曾经，想念你们的纯真笑容' },
+                    D: { title: '源桂张 肉好胀', desc: '是源桂张和肉好胀，是三点水的源和zhang憨蜹，是451和4唱1，是太阳与地球，是万千小鸡的豹豹猫猫！' }
+                };
+                document.getElementById('resultTitle').innerText = resultConfig[resType].title;
+                document.getElementById('resultDesc').innerText = resultConfig[resType].desc;
+            }else{
+                // 新增：家产模拟器 计分逻辑
+                let score = 0;
+                // 第1题
+                if(answers[1] === 'A') score +=3;
+                if(answers[1] === 'B') score +=2;
+                if(answers[1] === 'C') score +=0;
+                // 第2题
+                if(answers[2] === 'A') score -=3;
+                if(answers[2] === 'B') score +=2;
+                if(answers[2] === 'C') score +=1;
+                // 第3题
+                if(answers[3] === 'A') score +=0;
+                if(answers[3] === 'B') score +=2;
+                if(answers[3] === 'C') score +=3;
+
+                let title, desc;
+                if(score <= 0){
+                    title = '还没磨合好';
+                    desc = '还没跟桂瑞原生家庭磨合好……继续加油吧！';
+                }else if(score >=1 && score <=3){
+                    title = '幸福一家';
+                    desc = '我爱桂瑞，桂瑞爱我，我们是幸福的一家。';
+                }else if(score >=4 && score <=7){
+                    title = '原生家庭';
+                    desc = '桂瑞永远是你的原生家庭！';
+                }else{
+                    title = '桂瑞亲女儿';
+                    desc = '满分亲女儿！你是桂瑞最疼爱的宝贝～';
+                }
+                document.getElementById('resultTitle').innerText = title;
+                document.getElementById('resultDesc').innerText = desc;
+            }
+        }
+
+        // 重新测试
+        function restartTest() {
+            switchTest(nowModule);
+        }
+    </script>
+</body>
+</html>
